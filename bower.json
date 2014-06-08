@@ -1,0 +1,30 @@
+{
+  "name": "web-pts",
+  "version": "1.0.0",
+  "description": "Simple modules for dynamic loading of scripts and styles, display messages, ajax processing, etc",
+  "authors": [
+    "alexpts <alexpts@yandex.ru>"
+  ],
+  "keywords": [
+    "js",
+    "css",
+    "load",
+    "lazy",
+    "stiker",
+    "ajax",
+    "pts"
+  ],
+  "license": "MIT",
+  "homepage": "http://alexpts.ru",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests",
+    "demos"
+  ],
+  "dependencies": {
+    "jquery": ">=2.1.0"
+  }
+}
