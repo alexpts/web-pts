@@ -1,0 +1,61 @@
+#pts_stikers {
+  width: 200px;
+  position: fixed;
+  top: 20px;
+  right: 20px;
+  z-index: 900;
+  font-family: times New Roman;
+}
+#pts_stikers .stiker {
+  border: 1px solid #aaa;
+  background-color: #f9f9f9;
+  border-radius: 5px;
+  opacity: 0.01;
+  margin-top: 20px;
+  z-index: 905;
+  position: relative;
+  padding: 1px;
+  box-shadow: 1px 1px 8px -6px #000000;
+  font-size: 14px;
+  transition: 700ms ease-out;
+  transition-property: opacity, margin;
+}
+#pts_stikers .stiker.removeAll {
+  opacity: 0.1;
+  margin-top: -50px;
+  margin-bottom: 22px;
+}
+#pts_stikers .stiker.removeAll.show {
+  margin-top: 0;
+}
+#pts_stikers .stiker.show {
+  opacity: 0.7;
+  margin-top: 10px;
+  margin-bottom: 0px;
+}
+#pts_stikers .stiker.remove {
+  opacity: 0.01 !important;
+  z-index: -1;
+}
+#pts_stikers .stiker:hover {
+  opacity: 1;
+}
+#pts_stikers .stiker .stiker_title {
+  background: #004499;
+  color: #fff;
+  border-radius: 5px;
+  padding: 2px 4px;
+  cursor: pointer;
+  text-shadow: 1px 1px 0 #000;
+  font-size: 16px;
+}
+#pts_stikers .stiker .msg {
+  padding: 4px;
+  margin: 0;
+}
+#pts_stikers .stiker_success .stiker_title {
+  background-color: #446622;
+}
+#pts_stikers .stiker_error .stiker_title {
+  background-color: #751100;
+}
