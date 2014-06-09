@@ -39,6 +39,15 @@
                 return $stiker;
             },
 
+            /**
+             * @param event
+             * @param stiker
+             * @private
+             */
+            _createFromEvent = function(event, stiker){
+                _create(stiker);
+            },
+
             _getWrapper = function(){
                 if(!_wrapper) {
                     _wrapper = $('#'+ _id);
@@ -136,6 +145,7 @@
                 $(document).on('click', '#'+_id+' .removeAll', _handlers.removeAll);
                 // Удаляет стикер при щелчке на него
                 $(document).on('click', '#'+_id+' .stiker_title', _handlers.removeOne);
+                $(document).on('pts.stiker.create', _createFromEvent);
 
                 $(document).trigger('pts.module.on', {name: 'stiker'});
             },
@@ -143,6 +153,7 @@
             _off = function(){
                 $(document).off('click', '#'+_id+' .removeAll', _handlers.removeAll);
                 $(document).off('click', '#'+_id+' .stiker_title', _handlers.removeOne);
+                $(document).off('pts.stiker.create', _createFromEvent);
 
                 $(document).trigger('pts.module.off', {name: 'stiker'});
             },
