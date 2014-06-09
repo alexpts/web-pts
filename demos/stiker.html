@@ -14,16 +14,16 @@
 <a id='addStiker' href="#">Add stiker</a>
 
 <script type="text/javascript">
-    var StikerI = 1;
-    var PTS = PTS ? PTS : {};
+    var stikerI = 1;
+
     $(document).one('click', '#addStiker', function(e){
         e.preventDefault();
 
-        pts.loader.load('stiker.css', {url:'/web-pts/src/module/stiker/stiker.css'});
-        pts.loader.load('stiker.js', {url:'/web-pts/src/module/stiker/stiker.js'}, function(){
+        pts.loader.load('stiker.css', {url:'/web-pts/src/js/stiker/stiker.css'});
+        pts.loader.load('stiker.js', {url:'/web-pts/src/js/stiker/stiker.js'}, function(){
             pts.stiker.create({
-                msg: 'Module loaded success',
-                title: 'Success init',
+                msg: 'Модуль подгрузился успешно',
+                title: 'Готово',
                 type: 'success'
             });
         });
@@ -31,17 +31,19 @@
         $(document).on('click', '#addStiker', function(e){
             e.preventDefault();
             var stiker = {
-                msg: 'demo',
-                title: '#' + StikerI
+                msg: 'инфо',
+                title: 'Инфо #' + stikerI
             };
-            StikerI += 1;
+            stikerI += 1;
 
-            if(StikerI % 3 == 0) {
+            if(stikerI % 3 == 0) {
                 stiker.type = 'error';
-                stiker.msg = 'Demo error, details... more words, more, very more!!!';
-            } else if(StikerI % 5 == 0) {
+                stiker.msg = 'Пример с ошибкой, больше кода, много детаелей, блок любой высоты анимируется верно!';
+                stiker.title = 'Пример ошибки'
+            } else if(stikerI % 5 == 0) {
                 stiker.type = 'success';
                 stiker.msg = 'Success action';
+                stiker.title = 'Пример успеха';
             }
 
             pts.stiker(stiker);
