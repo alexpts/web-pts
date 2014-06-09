@@ -1,6 +1,6 @@
 {
   "name": "web-pts",
-  "version": "1.0.0",
+  "version": "0.0.1",
   "description": "Simple modules for dynamic loading of scripts and styles, display messages, ajax processing, etc",
   "authors": [
     "alexpts <alexpts@yandex.ru>"
