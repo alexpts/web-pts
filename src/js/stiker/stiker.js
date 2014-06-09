@@ -1,13 +1,4 @@
-/*
- Plugin Name = Стикеры
- Plugin URI =
- Description = Позволяет создавать всплывающие подсказки, которые удаляются через промежуток времени или по клику.
- Version = 1.00
- Author = Alexpts
- Author URI = http://alexpts.ru
- */
-
-(function($, PTS) {
+(function($, pts) {
     'use strict';
 
     var Stiker = function() {
@@ -27,7 +18,7 @@
                     msg: '',
                     title: 'Инфо',
                     type: 'blue',
-                    delay: 10, // sec
+                    delay: 15, // sec
                     date: new Date
                 }, stiker);
 
@@ -139,7 +130,7 @@
                 removeAll: function() {
                     if(_activeCount > 0) {
                         _hideRA();
-                        _getWrapper().find('.stiker').not('.removeAll, .stiker_redirect').each(function(i) {
+                        _getWrapper().find('.stiker').not('.removeAll, .stiker_redirect, .remove').each(function(i) {
                             _hideAndRemove($(this));
                         });
                     }
