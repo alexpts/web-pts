@@ -17,9 +17,8 @@
                 stiker = $.extend({
                     msg: '',
                     title: 'Инфо',
-                    type: 'blue',
-                    delay: 15, // sec
-                    date: new Date
+                    type: 'info',
+                    delay: 15 // sec
                 }, stiker);
 
                 var html = "<div class='stiker stiker_" + stiker.type + "'>";
@@ -115,11 +114,6 @@
                 _getWrapper().children('.removeAll').removeClass('show');
             },
 
-            _destroy = function() {
-                _getWrapper().remove();
-                _off();
-            },
-
             _handlers = {
                 removeOne: function() {
                     var $stiker = $(this).parent();
@@ -134,37 +128,30 @@
                             _hideAndRemove($(this));
                         });
                     }
-                },
-                ajaxComplete: function(event, jqXHR, ajaxOptions) {
-                    var json = jqXHR.responseJSON;
-
-                    if(json && json.stikers) {
-                        for(var i = json.stikers.length; i--;) {
-                            var stiker = json.stikers[i];
-                            _create(stiker);
-                        }
-                    }
                 }
             },
 
             _on = function(){
-                // Обработка ajax запроса, модуль проверяет, есть ли стикеры в JSON ответе от сервера
-                $(document).on('ajaxComplete', _handlers.ajaxComplete);
                 // Удалеят все стикеры, при нажатии на "Удалить все"
                 $(document).on('click', '#'+_id+' .removeAll', _handlers.removeAll);
                 // Удаляет стикер при щелчке на него
                 $(document).on('click', '#'+_id+' .stiker_title', _handlers.removeOne);
+
+                $(document).trigger('pts.module.on', {name: 'stiker'});
             },
 
             _off = function(){
-                $(document).off('ajaxComplete', _handlers.ajaxComplete);
                 $(document).off('click', '#'+_id+' .removeAll', _handlers.removeAll);
                 $(document).off('click', '#'+_id+' .stiker_title', _handlers.removeOne);
+
+                $(document).trigger('pts.module.off', {name: 'stiker'});
             },
 
-            /**
-             * @constructor
-             */
+            _destroy = function() {
+                _getWrapper().remove();
+                _off();
+            },
+
             _constructor = function() {
                 if ($(_id).length) {
                     return;
