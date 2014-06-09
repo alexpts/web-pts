@@ -1,29 +1,30 @@
 #pts_stikers {
-  width: 200px;
+  width: 220px;
   position: fixed;
   top: 20px;
   right: 20px;
   z-index: 900;
-  font-family: times New Roman;
+  font-family: Times New Roman, sans-serif;
   line-height: 22px;
 }
 #pts_stikers .stiker {
-  border: 1px solid #aaa;
+  border: 1px solid rgba(0, 0, 0, 0.3);
   background-color: #f9f9f9;
-  border-radius: 5px;
+  border-radius: 6px;
   opacity: 0.01;
   margin-top: 30px;
   z-index: 905;
   position: relative;
   padding: 1px;
-  box-shadow: 1px 1px 8px -6px #000000;
   font-size: 14px;
+  white-space: normal;
   transition: 700ms ease-out;
   transition-property: opacity, margin;
+  box-shadow: 2px 5px 7px rgba(0, 0, 0, 0.1);
 }
 #pts_stikers .stiker.removeAll {
   opacity: 0.1;
-  margin-top: -50px;
+  margin-top: -60px;
   margin-bottom: 22px;
 }
 #pts_stikers .stiker.removeAll.show {
@@ -42,36 +43,24 @@
   opacity: 1;
 }
 #pts_stikers .stiker .stiker_title {
-  background: #004499;
-  color: #fff;
+  background-color: #004499;
   border-radius: 5px;
-  padding: 2px 6px;
+  font-size: 14px;
+  font-weight: 400;
+  line-height: 18px;
+  margin: 0;
+  padding: 5px 10px;
+  color: #fff;
   cursor: pointer;
   text-shadow: 1px 1px 0 #000;
-  font-size: 16px;
-  background: -moz-linear-gradient(270deg, #004499 0%, #336699 100%);
-  background: -webkit-linear-gradient(270deg, #004499 0%, #336699 100%);
-  background: -o-linear-gradient(270deg, #004499 0%, #336699 100%);
-  background: -ms-linear-gradient(270deg, #004499 0%, #336699 100%);
-  background: linear-gradient(0deg, #004499 0%, #336699 100%);
 }
 #pts_stikers .stiker .msg {
-  padding: 4px 6px;
+  padding: 8px 10px;
   margin: 0;
 }
 #pts_stikers .stiker_success .stiker_title {
   background-color: #446622;
-  background: -moz-linear-gradient(270deg, #446622 0%, #669933 100%);
-  background: -webkit-linear-gradient(270deg, #446622 0%, #669933 100%);
-  background: -o-linear-gradient(270deg, #446622 0%, #669933 100%);
-  background: -ms-linear-gradient(270deg, #446622 0%, #669933 100%);
-  background: linear-gradient(0deg, #446622 0%, #669933 100%);
 }
 #pts_stikers .stiker_error .stiker_title {
   background-color: #751100;
-  background: -moz-linear-gradient(270deg, #751100 0%, #993333 100%);
-  background: -webkit-linear-gradient(270deg, #751100 0%, #993333 100%);
-  background: -o-linear-gradient(270deg, #751100 0%, #993333 100%);
-  background: -ms-linear-gradient(270deg, #751100 0%, #993333 100%);
-  background: linear-gradient(0deg, #751100 0%, #993333 100%);
 }

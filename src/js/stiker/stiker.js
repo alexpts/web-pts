@@ -18,11 +18,11 @@
                     msg: '',
                     title: 'Инфо',
                     type: 'info',
-                    delay: 15 // sec
+                    delay: 12 // sec
                 }, stiker);
 
                 var html = "<div class='stiker stiker_" + stiker.type + "'>";
-                html += "<div class='stiker_title'>" + stiker.title + "</div>";
+                html += "<h3 class='stiker_title'>" + stiker.title + "</h3>";
                 html += stiker.msg ? "<p class='msg'>" + stiker.msg + "</p>" : '';
                 html += "</div>";
 
