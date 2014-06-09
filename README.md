@@ -13,6 +13,11 @@
 ---
 ### Модули:
 
-###### Loader
+###### loader
 Реализует синхронную/асинхронную загрузку и управление скриптами и стилями на странице - 
 https://github.com/alexpts/web-pts/blob/master/docs/loader.md
+
+
+##### stiker
+Реализует отображение уведомлений в виде прикрепленых стикеров - 
+https://github.com/alexpts/web-pts/blob/master/docs/stiker.md
