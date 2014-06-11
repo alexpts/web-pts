@@ -63,7 +63,7 @@
         var ERROR = 3;
 
         options = $.extend({
-            moduleDir: '', // relpath
+            moduleDir: $('html').data('module-dir') || '', // relpath
             addFromPage: true,
             components: []
         }, options);
@@ -110,7 +110,7 @@
             var ext = pts.util.getExt(name);
             var url = getUrl(name, params);
 
-            if(isLoad(name, url)) {
+            if (isLoad(name, url)) {
                 return false; // ready
             }
 
@@ -127,7 +127,7 @@
                     console.log('load ' + name);
                 },
                 function(){
-                    $document.trigger('Loader.load', [name, ext, url]);
+                    $document.trigger('pts.loader.load', [name, ext, url]);
                 }
             ]);
 
@@ -168,10 +168,9 @@
          * @returns {boolean}
          */
         var isLoad = function(name, url) {
-
             if(pool[name] && pool[name]['status'] === READY) {
                 if(pool[name]['url'] && (pool[name]['url'] != url)) {
-                    console.log("Скрипт " + name + " был подгружен ранее, но с другого адреса " + pool[name]);
+                    console.log("Скрипт " + name + " ("+url+") был подгружен ранее, но с другого адреса " + pool[name]['url']);
                 }
                 return true;
             }
@@ -243,13 +242,13 @@
                 }
                 var loadDepend = function(){
                     if(isLoads(modules)) {
-                        $(document).off('Loader.load', loadDepend);
+                        $(document).off('pts.loader.load', loadDepend);
                         callback();
                     }
                 };
 
                 if(callback) {
-                    $(document).on('Loader.load', loadDepend);
+                    $(document).on('pts.loader.load', loadDepend);
                 }
             }
         };
@@ -264,16 +263,20 @@
             components[name] = params;
         };
 
-        if(options.addFromPage) {
-            addHavesModules();
-        }
+        var _init = function(){
+            if(options.addFromPage) {
+                addHavesModules();
+            }
+        };
+
 
         return {
             load: load,
             loads: loads,
             addComponent: addComponent,
             pool: pool,
-            components: components
+            components: components,
+            init: _init
         };
     };
 
@@ -281,3 +284,7 @@
     pts.loader.constructor = _Loader;
 
 })(jQuery, window, pts);
+
+$(document).ready(function(){
+    pts.loader.init();
+});

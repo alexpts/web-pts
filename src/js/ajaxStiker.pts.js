@@ -14,42 +14,31 @@
             }
         };
 
-        /**
-         * @param [event]
-         * @param {String} [name]
-         */
-        var _on = function(event, name){
-            if(event && name !== 'stiker') {
-                return;
-            }
-
+        var _on = function(){
             $(document).on('ajaxComplete', _ajaxCompleteStikers);
         };
 
-        /**
-         * @param [event]
-         * @param {String} [name]
-         */
-        var _off = function(event, name){
-            if(event && name !== 'stiker') {
-                return;
-            }
-
+        var _off = function(){
             $(document).off('ajaxComplete', _ajaxCompleteStikers);
         };
 
-        var _constructor = function(){
-            $(document).on('pts.module.on', _on);
-            $(document).on('pts.module.off', _off);
-            _on();
-        }();
+        var _init = function(){
+            pts.loader.loads(['stiker.pts.js', 'stiker.pts.css'], function(){
+                _on();
+            });
+        };
 
         return {
             on: _on,
-            off: _off
+            off: _off,
+            init: _init
         }
     };
 
     pts.stiker.ajax = new ajaxStiker();
 
 })(jQuery, pts);
+
+$(document).ready(function(){
+    pts.stiker.ajax.init();
+});

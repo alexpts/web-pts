@@ -4,7 +4,6 @@ var pts = {};
     'use strict';
 
     var _util = function(){
-
         /**
          * @param {String} fullName
          * @param {Object} [contenxt=
@@ -72,11 +71,18 @@ var pts = {};
             return stack;
         };
 
+        var _isEmpty = function(val){
+            return (val instanceof Object) ?  $.isEmptyObject(val) :
+                ( (val===""||val==0||val=="undefined"||val===null||val===false||($.isArray(val)&&val.length===0)) ? true : false);
+
+        };
+
         return {
             namespace: _namespace,
             createNode: _createNode,
             getExt: _getExt,
-            addCallback: _addCallback
+            addCallback: _addCallback,
+            isEmpty: _isEmpty
         };
     }();
 

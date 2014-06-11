@@ -41,8 +41,7 @@
 
             /**
              * @param event
-             * @param stiker
-             * @private
+             * @param {Object} stiker
              */
             _createFromEvent = function(event, stiker){
                 _create(stiker);
@@ -163,20 +162,21 @@
                 _off();
             },
 
-            _constructor = function() {
+            _init = function() {
                 if ($(_id).length) {
                     return;
                 }
 
                 $("body").append("<div id='"+_id+"'><div class='stiker removeAll'><div class='stiker_title'>Удалить все</div></div></div>");
                 _on();
-            }();
+            };
 
         return {
-            'on': _on,
-            'off': _off,
-            'create': _create,
-            'destroy': _destroy
+            on: _on,
+            off: _off,
+            create: _create,
+            destroy: _destroy,
+            init: _init
         };
     };
 
@@ -190,3 +190,7 @@
     pts.stiker['prototype'] = Object; // @todo посоветоваться как правильно
 
 })(jQuery, pts);
+
+$(document).ready(function(){
+    pts.stiker.init();
+});
