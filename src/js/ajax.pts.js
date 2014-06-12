@@ -96,6 +96,20 @@
         var _ajaxComplete = function(event, jqXHR, ajaxOptions){
             _decrProgress();
 
+            if(jqXHR.status >= 300 && jqXHR.status < 400) {
+                var url = jqXHR.getResponseHeader('Redirect');
+                if(url) {
+                    window.location.href = url;
+                    return;
+                }
+
+                pts.stiker.create({
+                    msg: 'Ошибка запроса, ответ не содержит адрес для перенаправления',
+                    title: 'Ошибка',
+                    type: 'error'
+                });
+            }
+
             var json = jqXHR.responseJSON;
 
             if(json) {
@@ -126,8 +140,8 @@
         var _ajaxError = function(event, jqXHR, ajaxOptions){
             _decrProgress();
 
-            if(jqXHR.status == 0) {
-                return; // fix abort
+            if(jqXHR.status < 400) {
+                return; // not error
             }
 
             var json = jqXHR.responseJSON;
@@ -138,13 +152,25 @@
             // content-type не тот что мы ожидали
             if (!_isCorrectContentType(ajaxOptions, responseDataType)) {
                 console.log('Response content type does not meet the expected');
-                PTS.Stiker.create("Ошибка обработки ajax запроса. Возможно ошибка на сервере", 'Ошибка', 'red');
+                pts.stiker.create({
+                    msg: "Ошибка обработки ajax запроса. Возможно ошибка на сервере",
+                    title: 'Ошибка',
+                    type: 'error'
+                });
             }
 
             if(json && json.error) {
-                PTS.Stiker.create(json.error, 'Erorr', 'red');
+                pts.stiker.create({
+                    msg: json.error,
+                    title: 'Ошибка',
+                    type: 'error'
+                });
             } else {
-                PTS.Stiker.create(text, 'Erorr', 'red'); // @todo послать в лог на сервер, что херню в ответе получили
+                pts.stiker.create({
+                    msg: text,
+                    title: 'Ошибка',
+                    type: 'error'
+                }); // @todo послать в лог на сервер, что херню в ответе получили
             }
         };
 
