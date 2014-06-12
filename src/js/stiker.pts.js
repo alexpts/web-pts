@@ -40,6 +40,18 @@
             },
 
             /**
+             * @param {String} error
+             */
+            _error = function(error){
+                return _create({
+                    msg: error,
+                    title: 'Ошибка',
+                    type: 'error',
+                    delay: 0
+                })
+            },
+
+            /**
              * @param event
              * @param {Object} stiker
              */
@@ -176,7 +188,8 @@
             off: _off,
             create: _create,
             destroy: _destroy,
-            init: _init
+            init: _init,
+            error: _error
         };
     };
 
