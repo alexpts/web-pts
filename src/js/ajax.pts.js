@@ -103,27 +103,13 @@
                     return;
                 }
 
-                pts.stiker.create({
-                    msg: 'Ошибка запроса, ответ не содержит адрес для перенаправления',
-                    title: 'Ошибка',
-                    type: 'error'
-                });
+                pts.stiker.error('Ошибка запроса, ответ не содержит адрес для перенаправления');
             }
 
             var json = jqXHR.responseJSON;
 
             if(json) {
                 var context = $(ajaxOptions.context);
-                //$(this).triggerHandler('ajaxComplete.json', [json, context]);
-
-                // Redirect @todo вынести в модуль, @todo проериять по коду ответа сервера 3xx
-//                if(json && json.redirect) {
-//                    pts.stiker.create({
-//                        msg: 'Подождите, идет переадресация...',
-//                        title: 'Перенаправление'
-//                    });
-//                    location.href = json.redirect;
-//                }
 
                 // jsCode
                 if(json && json.jsCode && $.trim(json.jsCode)) {
@@ -152,25 +138,13 @@
             // content-type не тот что мы ожидали
             if (!_isCorrectContentType(ajaxOptions, responseDataType)) {
                 console.log('Response content type does not meet the expected');
-                pts.stiker.create({
-                    msg: "Ошибка обработки ajax запроса. Возможно ошибка на сервере",
-                    title: 'Ошибка',
-                    type: 'error'
-                });
+                pts.stiker.error("Ошибка обработки ajax запроса. Возможно ошибка на сервере");
             }
 
             if(json && json.error) {
-                pts.stiker.create({
-                    msg: json.error,
-                    title: 'Ошибка',
-                    type: 'error'
-                });
+                pts.stiker.error(json.error);
             } else {
-                pts.stiker.create({
-                    msg: text,
-                    title: 'Ошибка',
-                    type: 'error'
-                }); // @todo послать в лог на сервер, что херню в ответе получили
+                pts.stiker.error(text); // @todo послать в лог на сервер, что херню в ответе получили
             }
         };
 
