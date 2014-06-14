@@ -62,8 +62,13 @@
         var PENDING = 2;
         var ERROR = 3;
 
+        var _getDIR = function(){
+            var url = $('script[src*="loader.pts."]').attr('src');
+            return url.replace(/(.*)\/loader.pts.(min.)?js/, '$1');
+        };
+
         options = $.extend({
-            moduleDir: $('html').data('module-dir') || '', // relpath
+            moduleDir: $('html').data('module-dir') || _getDIR(),
             addFromPage: true,
             components: []
         }, options);
