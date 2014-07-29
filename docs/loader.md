@@ -139,9 +139,8 @@
 
 С помощью bower
 
-    bower install js-loader
+    bower install web-pts
 
-Или скачав файл https://github.com/alexpts/js-loader/blob/master/src/loader.js
 
 
 <a name="description"></a>
