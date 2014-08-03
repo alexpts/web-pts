@@ -64,7 +64,7 @@
 
         var _getDIR = function(){
             var url = $('script[src*="loader.pts."]').attr('src');
-            return url.replace(/(.*)\/loader.pts.(min.)?js/, '$1');
+            return url.replace(/(.*)\/loader.pts.(min.)?js(\?.*)/, '$1');
         };
 
         options = $.extend({
