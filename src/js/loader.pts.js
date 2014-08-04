@@ -26,7 +26,7 @@
                 node.charset = s.scriptCharset || "utf-8";
 
                 node.onload = node.onreadystatechange = function() {
-                    if(!node.readyState || /loaded|complete/.test(node.readyState)) {
+                    if (!node.readyState || /loaded|complete/.test(node.readyState)) {
                         node = node.onload = node.onreadystatechange = null;
                         callback(200, "success");
                     }
@@ -83,15 +83,15 @@
          */
         var getUrl = function(name, params) {
 
-            if(params.url) {
+            if (params.url) {
                 return params.url;
             }
 
-            if(params.relUrl) {
+            if (params.relUrl) {
                 return options.moduleDir + '/' + params.relUrl;
             }
 
-            if(components[name]) {
+            if (components[name]) {
                 return getUrl(name, components[name]);
             }
 
@@ -107,7 +107,7 @@
          */
         var load = function(name, params, callback) {
             params = params || {};
-            if(typeof params === 'function') {
+            if (typeof params === 'function') {
                 callback = params;
                 params = {};
             }
@@ -119,7 +119,7 @@
                 return false; // ready
             }
 
-            if(getStatus(name) === PENDING){
+            if (getStatus(name) === PENDING){
                 return false; // loading
             }
 
@@ -136,7 +136,7 @@
                 }
             ]);
 
-            if(callback instanceof Function) {
+            if (callback instanceof Function) {
                 params.success.unshift(callback);
             }
 
@@ -173,8 +173,8 @@
          * @returns {boolean}
          */
         var isLoad = function(name, url) {
-            if(pool[name] && pool[name]['status'] === READY) {
-                if(pool[name]['url'] && (pool[name]['url'] != url)) {
+            if (pool[name] && pool[name]['status'] === READY) {
+                if (pool[name]['url'] && (pool[name]['url'] != url)) {
                     console.log("Скрипт " + name + " ("+url+") был подгружен ранее, но с другого адреса " + pool[name]['url']);
                 }
                 return true;
@@ -185,16 +185,15 @@
 
         /**
          * @param {String} name
-         * @returns {String|bool}
+         * @returns {String|Boolean}
          */
         var getStatus = function(name){
             return pool[name] ? pool[name]['status'] : false;
         };
 
         var addHavesModules = function(){
-            var css = $("link[href$='css']", $head);
-            var js = $("script[src$='js']", $head);
-            js.add(css).each(function() {
+            var $resources = $("link[href*='\.css'], script[src*='\.js']", $head);
+            $resources.each(function() {
                 var $this = $(this);
                 var url = $this.attr('src') || $this.attr('href');
                 var name = $this.data('name') || url;
@@ -212,18 +211,18 @@
         var isLoads = function(modules) {
             var i = modules.length;
 
-            while(i--) {
+            while (i--) {
                 var name, url;
                 var module = modules[i];
 
-                if(typeof module === 'string') {
+                if (typeof module === 'string') {
                     name = url = module;
                 } else {
                     name = module.name;
                     url = module.params.url;
                 }
 
-                if ( !isLoad(name, url) ) {
+                if (!isLoad(name, url) ) {
                     return false;
                 }
             }
@@ -236,10 +235,10 @@
          * @param {Function} callback
          */
         var loads = function(modules, callback){
-            if(isLoads(modules)) {
+            if (isLoads(modules)) {
                 callback ? callback() : '';
             } else {
-                for(var i = modules.length; i--;) {
+                for (var i = modules.length; i--;) {
                     var module = modules[i];
                     var name = module.name || module;
                     var params = (typeof module === 'string') ? {} : module.params;
@@ -252,7 +251,7 @@
                     }
                 };
 
-                if(callback) {
+                if (callback) {
                     $(document).on('pts.loader.load', loadDepend);
                 }
             }
@@ -273,7 +272,6 @@
                 addHavesModules();
             }
         };
-
 
         return {
             load: load,
