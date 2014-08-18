@@ -5,13 +5,13 @@
      * @param {Function} handler(html, title)
      * @constructor
      */
-    var _history = function(handler){
+    var _history = function(handler) {
         var _on = function(){
             window.addEventListener('popstate', _popstate, false);
             return this;
         };
 
-        var _off = function(){
+        var _off = function() {
             window.removeEventListener('popstate', _popstate);
             return this;
         };

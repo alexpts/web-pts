@@ -9,7 +9,7 @@ var pts = {};
          * @param {Object} [contenxt=
          * @returns {Object|*}
          */
-        var _namespace = function(fullName, contenxt){
+        var _namespace = function(fullName, contenxt) {
             contenxt = contenxt || window;
 
             var parts = fullName.split('.');
@@ -32,7 +32,7 @@ var pts = {};
         var _createNode = function(name, attrs) {
             var node = document.createElement(name), attr;
 
-            for(attr in attrs) {
+            for (attr in attrs) {
                 if(attrs.hasOwnProperty(attr)) {
                     node.setAttribute(attr, attrs[attr]);
                 }
@@ -45,7 +45,7 @@ var pts = {};
          * @param {String} url
          * @returns {string}
          */
-        var _getExt = function(url){
+        var _getExt = function(url) {
             return url.replace(/.*\.(\w+)$/, '$1').toLowerCase(); // .js, .css, .json, .tpl
         };
 
@@ -54,15 +54,14 @@ var pts = {};
          * @param {Array|Function} callback
          * @returns {Array}
          */
-        var _addCallback = function(stack, callback){
-
-            if(!stack) {
+        var _addCallback = function(stack, callback) {
+            if (!stack) {
                 stack = [];
-            } else if(!Array.isArray(stack)) {
+            } else if (!Array.isArray(stack)) {
                 stack = [stack];
             }
 
-            if(Array.isArray(callback)) {
+            if (Array.isArray(callback)) {
                 stack = stack.concat(callback);
             } else {
                 stack.push(callback);
@@ -71,10 +70,9 @@ var pts = {};
             return stack;
         };
 
-        var _isEmpty = function(val){
+        var _isEmpty = function(val) {
             return (val instanceof Object) ?  $.isEmptyObject(val) :
                 ( (val===""||val==0||val=="undefined"||val===null||val===false||($.isArray(val)&&val.length===0)) ? true : false);
-
         };
 
         return {

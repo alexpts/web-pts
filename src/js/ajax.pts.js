@@ -5,24 +5,26 @@
         var $body = $('body');
         var ajaxRequestActive = 0;
 
-        var _on = function(){
-            $(document).on('click', 'a.ajax, button.ajax',_mySumbit) // Вешаем обработку щелчка на аяксовые ссылки
-                .on('submit', 'form.ajax', _mySumbit) // Вешаем обработку submit на формы
+        var _on = function() {
+            $(document)
+                .on('click', 'a.ajax, button.ajax',_mySumbit)
+                .on('submit', 'form.ajax', _mySumbit)
                 .on('ajaxSend', _ajaxSend)
                 .on('ajaxComplete', _ajaxComplete)
                 .on('ajaxError', _ajaxError);
         };
 
-        var _off = function(){
-            $(document).off('click', 'a.ajax, button.ajax',_mySumbit) // Вешаем обработку щелчка на аяксовые ссылки
-                .off('submit', 'form.ajax', _mySumbit) // Вешаем обработку submit на формы
+        var _off = function() {
+            $(document)
+                .off('click', 'a.ajax, button.ajax',_mySumbit)
+                .off('submit', 'form.ajax', _mySumbit)
                 .off('ajaxSend', _ajaxSend)
                 .off('ajaxComplete', _ajaxComplete)
                 .off('ajaxError', _ajaxError);
         };
 
-        var _mySumbit = function(e){
-            e.preventDefault();
+        var _mySumbit = function(event) {
+            event.preventDefault();
             _submit.call(this);
         };
 
@@ -83,7 +85,12 @@
         };
 
 
-
+        /**
+         * @param {jQuery} $
+         * @param {Event} event
+         * @param {String} code
+         * @param {Object} context
+         */
         var _eval = function($, event, code, context) {
             (new Function('$', 'event', 'context', 'return ' + code)($, event, context));
         };
@@ -98,9 +105,8 @@
 
             if(jqXHR.status >= 300 && jqXHR.status < 400) {
                 var url = jqXHR.getResponseHeader('Redirect');
-                if(url) {
-                    window.location.href = url;
-                    return;
+                if (url) {
+                    return window.location.href = url;
                 }
 
                 pts.stiker.error('Ошибка запроса, ответ не содержит адрес для перенаправления');
@@ -108,14 +114,14 @@
 
             var json = jqXHR.responseJSON;
 
-            if(json) {
+            if (json) {
                 var context = $(ajaxOptions.context);
 
                 // jsCode
-                if(json && json.jsCode && $.trim(json.jsCode)) {
+                if (json && json.jsCode && $.trim(json.jsCode)) {
                     var reg = /\$\(%SELF%\)/gm, i;
                     var jsCode = json.jsCode;
-                    for(i = jsCode.length; i--;) {
+                    for (i = jsCode.length; i--;) {
                         var code = jsCode[i].replace(reg, "context");
                         _eval($, event, code, context);
                     }
@@ -126,7 +132,7 @@
         var _ajaxError = function(event, jqXHR, ajaxOptions){
             _decrProgress();
 
-            if(jqXHR.status < 400) {
+            if (jqXHR.status < 400) {
                 return; // not error
             }
 
@@ -141,26 +147,26 @@
                 pts.stiker.error("Ошибка обработки ajax запроса. Возможно ошибка на сервере");
             }
 
-            if(json && json.error) {
+            if (json && json.error) {
                 pts.stiker.error(json.error);
             } else {
                 pts.stiker.error(text); // @todo послать в лог на сервер, что херню в ответе получили
             }
         };
 
-        var _isCorrectContentType = function(ajaxOptions, responseDataType){
+        var _isCorrectContentType = function(ajaxOptions, responseDataType) {
             var re = new RegExp(ajaxOptions.dataType);
             return re.test(responseDataType);
         };
 
-        var _incProgress = function(){
+        var _incProgress = function() {
             if(!ajaxRequestActive++) {
                 $body.addClass('ajax');
             }
         };
 
-        var _decrProgress = function(){
-            if(!--ajaxRequestActive) {
+        var _decrProgress = function() {
+            if (!--ajaxRequestActive) {
                 $body.removeClass('ajax');
             } else if (ajaxRequestActive < 0) {
                 ajaxRequestActive = 0;
@@ -168,7 +174,7 @@
             }
         };
 
-        var _init = function(){
+        var _init = function() {
             pts.loader.loads(['stiker.pts.js', 'stiker.pts.css'], _on);
         };
 
