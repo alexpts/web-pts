@@ -42,7 +42,7 @@
             /**
              * @param {String} error
              */
-            _error = function(error){
+            _error = function(error) {
                 return _create({
                     msg: error,
                     title: 'Ошибка',
@@ -55,12 +55,12 @@
              * @param event
              * @param {Object} stiker
              */
-            _createFromEvent = function(event, stiker){
+            _createFromEvent = function(event, stiker) {
                 _create(stiker);
             },
 
-            _getWrapper = function(){
-                if(!_wrapper) {
+            _getWrapper = function() {
+                if (!_wrapper) {
                     _wrapper = $('#'+ _id);
                 }
 
@@ -70,7 +70,7 @@
             /**
              * @param {jQuery} $stiker
              */
-            _removeByDelay = function($stiker){
+            _removeByDelay = function($stiker) {
                 var delay = $stiker.data('stiker').delay;
                 if (delay) {
                     var timeoutId = setTimeout(function() {
@@ -84,21 +84,21 @@
             /**
              * @param {jQuery} $stiker
              */
-            _add = function($stiker){
+            _add = function($stiker) {
                 _getWrapper().append($stiker);
             },
 
             /**
              * @param {jQuery} $stiker
              */
-            _show = function($stiker){
+            _show = function($stiker) {
                 _activeCount += 1;
                 _showRemoveAll();
                 $stiker.addClass('show');
             },
 
-            _showRemoveAll = function(){
-                if(_activeCount > 1) {
+            _showRemoveAll = function() {
+                if (_activeCount > 1) {
                     _getWrapper().children(".removeAll").addClass('show');
                 }
             },
@@ -108,14 +108,14 @@
              */
             _remove = function($stiker) {
                 var timeoutID = $stiker.data('timeoutID');
-                if (timeoutID){
+                if (timeoutID) {
                     clearTimeout(timeoutID);
                 }
 
                 $stiker.remove();
                 _activeCount += -1;
 
-                if(_activeCount < 2) {
+                if (_activeCount < 2) {
                     _hideRA();
                 }
             },
@@ -124,7 +124,7 @@
                 $stiker.addClass('remove');
                 var h = $stiker.height();
                 $stiker.css('margin-top', -h); //effect slideUp for dinamyc height
-                setTimeout(function(){
+                setTimeout(function() {
                     _remove($stiker);
                 }, 1000)
             },
@@ -151,7 +151,7 @@
                 }
             },
 
-            _on = function(){
+            _on = function() {
                 // Удалеят все стикеры, при нажатии на "Удалить все"
                 $(document).on('click', '#'+_id+' .removeAll', _handlers.removeAll);
                 // Удаляет стикер при щелчке на него
@@ -161,7 +161,7 @@
                 $(document).trigger('pts.module.on', {name: 'stiker'});
             },
 
-            _off = function(){
+            _off = function() {
                 $(document).off('click', '#'+_id+' .removeAll', _handlers.removeAll);
                 $(document).off('click', '#'+_id+' .stiker_title', _handlers.removeOne);
                 $(document).off('pts.stiker.create', _createFromEvent);
@@ -195,7 +195,7 @@
 
     var instance = new Stiker();
     pts.stiker = function(stiker){instance.create(stiker)};
-    for(var attr in instance) {
+    for (var attr in instance) {
         if (instance.hasOwnProperty(attr)){
             pts.stiker[attr] = instance[attr];
         }
