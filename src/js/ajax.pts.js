@@ -100,21 +100,21 @@
             _incProgress();
         };
 
+        /**
+         * @param event
+         * @param jqXHR
+         * @param {Object} ajaxOptions
+         */
         var _ajaxComplete = function(event, jqXHR, ajaxOptions){
+            var json;
+
             _decrProgress();
 
-            if(jqXHR.status >= 300 && jqXHR.status < 400) {
-                var url = jqXHR.getResponseHeader('Redirect');
-                if (url) {
-                    return window.location.href = url;
-                }
-
-                pts.stiker.error('Ошибка запроса, ответ не содержит адрес для перенаправления');
+            if (_tryRedirect(jqXHR)) {
+                return;
             }
 
-            var json = jqXHR.responseJSON;
-
-            if (json) {
+            if (json = jqXHR.responseJSON) {
                 var context = $(ajaxOptions.context);
 
                 // jsCode
@@ -127,6 +127,33 @@
                     }
                 }
             }
+        };
+
+        /**
+         * @param jqXHR
+         * @returns {Boolean}
+         */
+        var _tryRedirect = function(jqXHR){
+            if (jqXHR.status >= 300 && jqXHR.status < 400) {
+                var url = jqXHR.getResponseHeader('Redirect');
+                if (url) {
+                    pts.stiker.create({
+                        msg: 'Подождите, идет перенаправление',
+                        title: 'Redirect',
+                        delay: 12
+                    });
+
+                    setTimeout(function(){
+                        window.location.href = url;
+                    }, 500);
+                } else {
+                    pts.stiker.error('Ошибка запроса, ответ не содержит адрес для перенаправления');
+                }
+
+                return true;
+            }
+
+            return false;
         };
 
         var _ajaxError = function(event, jqXHR, ajaxOptions){
