@@ -48,7 +48,7 @@
                     title: 'Ошибка',
                     type: 'error',
                     delay: 0
-                })
+                });
             },
 
             /**
@@ -126,7 +126,7 @@
                 $stiker.css('margin-top', -h); //effect slideUp for dinamyc height
                 setTimeout(function() {
                     _remove($stiker);
-                }, 1000)
+                }, 1000);
             },
 
 
