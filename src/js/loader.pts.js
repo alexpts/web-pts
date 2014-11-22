@@ -56,8 +56,6 @@
      * @param {Object} options.components
      */
     var _Loader = function(options) {
-        options = options || {};
-
         var READY = 1;
         var PENDING = 2;
         var ERROR = 3;
@@ -71,7 +69,7 @@
             moduleDir: $('html').data('module-dir') || _getDIR(),
             addFromPage: true,
             components: []
-        }, options);
+        }, options || {});
 
         var pool = {};
         var components = {};
@@ -268,7 +266,7 @@
         };
 
         var _init = function(){
-            if(options.addFromPage) {
+            if (options.addFromPage) {
                 addHavesModules();
             }
         };
