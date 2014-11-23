@@ -1,5 +1,7 @@
 # Уведомления в виде стикеров
 
+# Demo
+http://codepen.io/alexots/details/EaaBRV/
 
 #EN
 ...
