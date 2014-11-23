@@ -18,6 +18,6 @@
 https://github.com/alexpts/web-pts/blob/master/docs/loader.md
 
 
-##### stiker
+##### stiker - http://codepen.io/alexpts/details/EaaBRV
 Реализует отображение уведомлений в виде прикрепленых стикеров - 
 https://github.com/alexpts/web-pts/blob/master/docs/stiker.md
