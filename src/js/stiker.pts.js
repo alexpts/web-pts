@@ -45,7 +45,7 @@
             _error = function(error) {
                 return _create({
                     msg: error,
-                    title: 'Ошибка',
+                    title: 'Error',
                     type: 'error',
                     delay: 0
                 });
