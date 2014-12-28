@@ -1,39 +1,37 @@
 var pts = {};
 
-(function($, window, pts){
+(function($, window){
     'use strict';
 
-    var _util = function(){
-        /**
-         * @param {String} fullName
-         * @param {Object} [contenxt=
-         * @returns {Object|*}
-         */
-        var _namespace = function(fullName, contenxt) {
-            contenxt = contenxt || window;
+    /**
+     * @param {String} name
+     */
+    var _namespace = function(name) {
+        var context = this || window;
 
-            var parts = fullName.split('.');
-            var count = parts.length;
+        var parts = name.split('.');
+        var count = parts.length;
 
-            for (var i = 0; i < count; i += 1) {
-                if (typeof contenxt[parts[i]] === undefined) {
-                    contenxt[parts[i]] = {};
-                }
-                contenxt = contenxt[parts[i]];
+        for (var i = 0; i < count; i += 1) {
+            if (context[parts[i]] === undefined) {
+                context[parts[i]] = {};
             }
-            return contenxt;
-        };
+            context = context[parts[i]];
+        }
+    };
 
+    var _util = function(){
         /**
          * @param {String} name
          * @param {Object} attrs
          * @returns {HTMLElement}
          */
         var _createNode = function(name, attrs) {
-            var node = document.createElement(name), attr;
+            var node = document.createElement(name),
+                attr;
 
             for (attr in attrs) {
-                if(attrs.hasOwnProperty(attr)) {
+                if (attrs.hasOwnProperty(attr)) {
                     node.setAttribute(attr, attrs[attr]);
                 }
             }
@@ -55,9 +53,8 @@ var pts = {};
          * @returns {Array}
          */
         var _addCallback = function(stack, callback) {
-            if (!stack) {
-                stack = [];
-            } else if (!Array.isArray(stack)) {
+            stack = stack || [];
+            if (!Array.isArray(stack)) {
                 stack = [stack];
             }
 
@@ -70,22 +67,27 @@ var pts = {};
             return stack;
         };
 
+        /**
+         * @param {*} val
+         * @returns {Boolean}
+         */
         var _isEmpty = function(val) {
-            return (val instanceof Object) ?  $.isEmptyObject(val) :
-                ( (val===""||val==0||val=="undefined"||val===null||val===false||($.isArray(val)&&val.length===0)) ? true : false);
+            return (val instanceof Object)
+                ? $.isEmptyObject(val)
+                : !val;
         };
 
         return {
-            namespace: _namespace,
             createNode: _createNode,
             getExt: _getExt,
             addCallback: _addCallback,
             isEmpty: _isEmpty
         };
-    }();
+    };
 
 
     /** public **/
-    pts.util = _util;
+    window.pts.util = _util();
+    window.pts.namespace = _namespace;
 
-})(jQuery, window, pts);
+})(jQuery, window);
