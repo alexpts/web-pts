@@ -177,7 +177,7 @@
             if (json && json.error) {
                 pts.stiker.error(json.error);
             } else {
-                pts.stiker.error(text); // @todo послать в лог на сервер, что херню в ответе получили
+                console.log(text); // @todo послать в лог на сервер, что херню в ответе получили
             }
         };
 
