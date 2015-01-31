@@ -85,7 +85,6 @@ var pts = {};
         };
     };
 
-
     /** public **/
     window.pts.util = _util();
     window.pts.namespace = _namespace;
